@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 @theme {
+  /* Color */
   --color-primary: #faff69;
   --color-danger: #ef4444;
+  --color-text-primary: #ffffff;
+  --color-text-dim: #666666;
+  --color-surface-sub: #111111;
+  --color-border-default: #2a2a2a;
+
+  /* Typography */
+  --font-inter: "Inter", sans-serif;
+  --font-size-body-regular: 15px;
 }
 
 .counter {

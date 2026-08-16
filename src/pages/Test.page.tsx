@@ -6,6 +6,7 @@
 // import PersonalLeagueCard from "../components/PersonalLeagueCard";
 
 import CircleButton from "../components/ui/AddButton";
+import TextArea from "../components/ui/TextArea";
 
 function TestPage() {
   // const { data, toggleSNB } = useLayoutStore();
@@ -16,10 +17,14 @@ function TestPage() {
   // };
 
   return (
+    <>
+    <div><TextArea placeholder="테스트 입력창" /></div>
+
     <div className="flex justify-center items-center h-screen bg-[lightgrey]">
       <CircleButton />
       <div className="font-normal font-[13px] border-danger border-1">test</div>
     </div>
+    </>
   );
 }
 
