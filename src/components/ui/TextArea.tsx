@@ -18,7 +18,7 @@ export default function TextArea({
       value={value}
       placeholder={placeholder}
       onChange={onChange}
-      className={`w-full min-w-[354px] h-[80px] p-[16px] bg-surface-sub border border-border-default rounded-[8px] text-text-primary text-body-regular leading-none placeholder:text-text-dim resize-none ${className}`}
+      className={`w-full min-w-[354px] h-[80px] p-[16px] bg-surface-sub border border-border-default rounded-[8px] text-text-primary text-body-regular leading-[1.15] no-scrollbar placeholder:text-text-dim resize-none ${className}`}
     />
   );
 }
