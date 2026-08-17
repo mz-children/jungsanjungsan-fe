@@ -30,10 +30,12 @@
   --color-budget-stage-4: #f59e0b;
   --color-budget-stage-5: #ef4444;
 
-  /* 오버레이 */
+  /*  오버레이  */
   --color-overlay-scrim: #000000;
 
   /* 폰트 */
+  --font-inter: "Inter", sans-serif;
+
   --text-display-amount: 32px;
   --text-display-amount--font-weight: 800;
 
@@ -78,4 +80,21 @@
 
   --text-caption-regular: 12px;
   --text-caption-regular--font-weight: 400;
+
+  /* 그림자 설정 */
+  --shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.251);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@utility no-scrollbar {
+  /* IE 엣지 파이어폭스 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  /* 크롬, 사파리 오페라 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
