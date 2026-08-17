@@ -9,16 +9,16 @@ import CircleButton from "../components/ui/AddButton";
 import RectangleButton from "../components/ui/RectangleButton";
 
 function TestPage() {
-  // const { data, toggleSNB } = useLayoutStore();
-  // const [count, setCount] = useState(0);
-
-  // const handleClickBtn = () => {
-  //   toggleSNB();
-  // };
+  const handleCheck = () => {
+    console.log("test!");
+    alert("this is test");
+  };
 
   return (
     <div className="flex justify-center items-center h-screen bg-[lightgrey]">
-      <RectangleButton variant="primary">버튼라벨</RectangleButton>
+      <RectangleButton variant="primary" onClick={handleCheck}>
+        버튼라벨
+      </RectangleButton>
     </div>
   );
 }
