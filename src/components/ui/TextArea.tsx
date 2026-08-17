@@ -1,6 +1,6 @@
 type TextAreaProps = {
-  name?: string;
-  value?: string;
+  name: string;
+  value: string;
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   className?: string;
