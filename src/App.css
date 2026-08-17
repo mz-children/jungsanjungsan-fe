@@ -35,7 +35,54 @@
 
   /* 폰트 */
   --font-inter: "Inter", sans-serif;
-  --font-size-body-regular: 15px;
+
+  --text-display-amount: 32px;
+  --text-display-amount--font-weight: 800;
+
+  --text-heading-xl: 20px;
+  --text-heading-xl--font-weight: 700;
+
+  --text-heading-lg: 18px;
+  --text-heading-lg--font-weight: 700;
+
+  --text-heading-md: 16px;
+  --text-heading-md--font-weight: 700;
+
+  --text-body-highlight: 15px;
+  --text-body-highlight--font-weight: 700;
+
+  --text-body-emphasis: 15px;
+  --text-body-emphasis--font-weight: 600;
+
+  --text-body-regular: 15px;
+  --text-body-regular--font-weight: 400;
+
+  --text-body-strong: 14px;
+  --text-body-strong--font-weight: 700;
+
+  --text-body-default: 14px;
+  --text-body-default--font-weight: 600;
+
+  --text-body-plain: 14px;
+  --text-body-plain--font-weight: 400;
+
+  --text-label-strong: 13px;
+  --text-label-strong--font-weight: 700;
+
+  --text-label-md: 13px;
+  --text-label-md--font-weight: 600;
+
+  --text-label-regular: 13px;
+  --text-label-regular--font-weight: 400;
+
+  --text-caption-strong: 12px;
+  --text-caption-strong--font-weight: 600;
+
+  --text-caption-regular: 12px;
+  --text-caption-regular--font-weight: 400;
+
+  /* 그림자 설정 */
+  --shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.251);
 }
 
 * {

@@ -8,6 +8,7 @@
 
 import { useState } from "react";
 import TextArea from "../components/ui/TextArea";
+import CircleButton from "../components/ui/AddButton";
 
 function TestPage() {
   const [text, setText] = useState("");
@@ -19,6 +20,7 @@ function TestPage() {
 
   return (
     <>
+      <CircleButton />
       <div className="flex justify-center items-center h-screen bg-[lightgrey]">
         {/* <CircleButton /> */}
         <TextArea

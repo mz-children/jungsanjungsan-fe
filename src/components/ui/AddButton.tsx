@@ -7,7 +7,7 @@ type AddButtonProps = {
 
 export default function CircleButton({ icon = <PlusIcon /> }: AddButtonProps) {
   return (
-    <div className="flex justify-center items-center w-[56px] h-[56px] bg-primary rounded-full shadow-[0_4px_8px_0_rgba(0,0,0,0.251)]">
+    <div className="flex justify-center items-center w-[56px] h-[56px] bg-brand-primary rounded-full shadow">
       {icon}
     </div>
   );
