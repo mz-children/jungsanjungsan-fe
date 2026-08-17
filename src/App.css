@@ -37,9 +37,11 @@
   --font-inter: "Inter", sans-serif;
   --font-size-body-regular: 15px;
 }
+
 * {
   box-sizing: border-box;
 }
+
 @utility no-scrollbar {
   /* IE 엣지 파이어폭스 */
   -ms-overflow-style: none;
