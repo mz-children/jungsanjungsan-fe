@@ -9,7 +9,7 @@
 import { useState } from "react";
 import TextArea from "../components/ui/TextArea";
 import CircleButton from "../components/ui/AddButton";
-import RectangleButton from "../components/ui/RectangleButton";
+import RectangleButton from "../components/ui/Button";
 
 function TestPage() {
   const [text, setText] = useState("");
