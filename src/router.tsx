@@ -9,6 +9,7 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<TestPage />} />
         <Route path="/sw" element={<TestSWPage />} />
+        {/* <Route path="/tk" element={<TestPageTK />} /> */}
         <Route path="/home" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
