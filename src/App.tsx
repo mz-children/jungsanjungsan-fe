@@ -1,7 +1,7 @@
 import Router from "./router";
-import "./reset.css";
-import "./App.css";
 import ReactQueryContext from "./context/reactQuery.context";
+
+import "./App.css";
 
 function App() {
   return (
