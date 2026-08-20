@@ -1,9 +1,8 @@
 type ButtonProps = {
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "danger" | "dangerSecondary" | "ghost";
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  className?: string;
   icon?: React.ReactNode;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const variants = {
@@ -18,8 +17,8 @@ const variants = {
 export default function Button({
   children,
   variant = "primary",
-  onClick,
   icon,
+  onClick,
 }: ButtonProps) {
   return (
     <button
