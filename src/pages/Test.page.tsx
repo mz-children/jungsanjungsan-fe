@@ -22,7 +22,10 @@ function TestPage() {
   return (
     <>
       <div className="flex justify-center items-center flex-col h-screen bg-[lightgrey] p-[24px] ">
-        <GoBackHeader title="정산방 상세" />
+        <GoBackHeader
+          title="정산방 상세"
+          onClickBack={() => console.log("test")}
+        />
         <TextArea
           name="test"
           value={text}
