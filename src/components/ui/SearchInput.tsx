@@ -1,8 +1,8 @@
 import SearchIcon from "../../assets/svg/search.svg?react";
 
 type SearchInputProps = {
-  name?: string;
-  value?: string;
+  name: string;
+  value: string;
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSearch?: () => void;
