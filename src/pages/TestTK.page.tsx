@@ -39,6 +39,7 @@ function TestPage() {
           초대링크 복사하기
         </Button>
         <SearchInput
+          name="search"
           placeholder="결제처, 금액 검색"
           value={searchText}
           onChange={(e) => {
