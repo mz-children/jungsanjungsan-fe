@@ -4,12 +4,20 @@ import VectorIcon from "../assets/svg/Vector.svg?react";
 import SearchInput from "../components/ui/SearchInput";
 import { useState } from "react";
 
+// const [searchText, setSearchText] = useState("");
 function TestPage() {
   const [searchText, setSearchText] = useState("");
 
   const handleCheck = () => {
     console.log("test!");
     alert("this is test");
+  };
+
+  const handleSearch = () => {
+    console.log("Search start~!");
+    console.log(searchText);
+    alert(`검색 : ${searchText}`);
+    setSearchText("");
   };
 
   return (
@@ -37,6 +45,7 @@ function TestPage() {
             setSearchText(e.target.value);
             // console.log(e.target.value);
           }}
+          onSearch={handleSearch}
         />
       </div>
     </div>
