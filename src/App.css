@@ -1,29 +1,29 @@
 @import "tailwindcss";
 
 @theme {
-  /* 배경 · 표면  */
+  /* 배경 · 표면 */
   --color-surface-canvas: #0a0a0a;
   --color-surface-card: #1a1a1a;
   --color-surface-sub: #111111;
 
-  /*  테두리  */
+  /* 테두리 */
   --color-border-default: #2a2a2a;
 
-  /*  텍스트  */
+  /* 텍스트 */
   --color-text-dim: #666666;
   --color-text-muted: #a0a0a0;
   --color-text-on-primary: #0a0a0a;
   --color-text-primary: #ffffff;
 
-  /*  브랜드  */
+  /* 브랜드 */
   --color-brand-primary: #faff69;
 
-  /*  상태 강조  */
+  /* 상태 강조 */
   --color-accent-danger: #ef4444;
   --color-accent-success: #22c55e;
   --color-accent-warning: #f59e0b;
 
-  /*  예산 단계  */
+  /* 예산 단계 */
   --color-budget-stage-1: #4ade80;
   --color-budget-stage-2: #22c55e;
   --color-budget-stage-3: #faff69;
