@@ -9,12 +9,14 @@ type DatePickerProps = {
   value: Date | undefined;
   onChange: (date: Date | undefined) => void;
   className?: string;
+  name?: string;
 };
 
 export default function DatePicker({
   value,
   onChange,
   className = "",
+  name = "",
 }: DatePickerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"date" | "time">("date");
