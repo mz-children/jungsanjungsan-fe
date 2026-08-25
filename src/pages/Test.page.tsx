@@ -8,8 +8,8 @@
 
 import { useState } from "react";
 import TextArea from "../components/ui/TextArea";
-import CircleButton from "../components/ui/AddButton";
 import GoBackHeader from "../components/ui/GoBackHeader";
+import CircleButton from "../components/ui/CircleButton";
 
 function TestPage() {
   const [text, setText] = useState("");
@@ -33,7 +33,6 @@ function TestPage() {
           placeholder="테스트 입력창"
         />
         <CircleButton />
-        {/* <div className="font-normal font-[13px] border-danger border-1">test</div> */}
       </div>
     </>
   );
