@@ -8,7 +8,7 @@
 
 import { useState } from "react";
 import TextArea from "../components/ui/TextArea";
-import CircleButton from "../components/ui/AddButton";
+import CircleButton from "../components/ui/CircleButton";
 import RectangleButton from "../components/ui/Button";
 
 function TestPage() {
