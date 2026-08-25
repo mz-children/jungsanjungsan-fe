@@ -19,12 +19,12 @@ export default function GoBackHeader({
 
   return (
     <div className="flex items-center justify-start w-full h-[58px] text-text-primary ">
-      <div
+      <button
         className="flex justify-center items-center w-[32px] h-[32px] cursor-pointer"
         onClick={handleClickBack}
       >
         <ChevronLeft />
-      </div>
+      </button>
       <div>{title}</div>
     </div>
   );
