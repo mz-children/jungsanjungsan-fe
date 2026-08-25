@@ -8,8 +8,8 @@
 
 import { useState } from "react";
 import TextArea from "../components/ui/TextArea";
+import GoBackHeader from "../components/ui/GoBackHeader";
 import CircleButton from "../components/ui/CircleButton";
-import RectangleButton from "../components/ui/Button";
 
 function TestPage() {
   const [text, setText] = useState("");
@@ -21,16 +21,18 @@ function TestPage() {
 
   return (
     <>
-      <CircleButton />
-      <div className="flex justify-center items-center h-screen bg-[lightgrey]">
-        {/* <CircleButton /> */}
+      <div className="flex justify-center items-center flex-col h-screen bg-[lightgrey] p-[24px] ">
+        <GoBackHeader
+          title="정산방 상세"
+          onClickBack={() => console.log("test")}
+        />
         <TextArea
           name="test"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="테스트 입력창"
         />
-        {/* <div className="font-normal font-[13px] border-danger border-1">test</div> */}
+        <CircleButton />
       </div>
     </>
   );
