@@ -32,7 +32,7 @@ export default function NumberInput({
   };
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative w-full ${className}`}>
       <input
         className={`w-full min-w-[354px] h-[48px] pl-[16px] pr-[36px] bg-surface-sub border border-border-default rounded-[8px] text-text-primary text-body-regular ${inputClassName}`}
         name={name}
