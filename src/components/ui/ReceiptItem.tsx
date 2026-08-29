@@ -1,39 +1,50 @@
 //src/components/ui/ReceiptItem.tsx
 
-// 아이콘 연결
 import ReceiptIcon from "../../assets/svg/receipt-icon.svg?react";
+import type { Currency } from "../../types/receiptItem.types";
+
+const CURRENCY_MAP: Record<Currency, { symbol: string; locale: string }> = {
+  KRW: { symbol: "₩", locale: "ko-KR" },
+  JPY: { symbol: "¥", locale: "ja-JP" },
+  USD: { symbol: "$", locale: "en-US" },
+};
 
 // 가게명, 가격, 돈 쓴 사람 props
-type ReceiptItemProps = {
+export type ReceiptItemProps = {
   merchantName: string;
   amount: number;
   payerName: string;
+  currency: Currency;
+
+  onClick: () => void;
 };
 
 export default function ReceiptItem({
   merchantName,
   amount,
   payerName,
+  currency,
+  onClick,
 }: ReceiptItemProps) {
   return (
     <div
-      className="flex items-center justify-between px-4 py-3
-                    bg-surface-card border border-border-default rounded-[8px]
-    "
+      className="flex items-center justify-between px-[16px] py-[12px] bg-surface-card border border-border-default rounded-[8px]"
+      onClick={onClick}
     >
-      <div className="flex items-center gap-3">
-        <ReceiptIcon className="w-10 h-10" />
-        <div className="flex flex-col">
-          <span className="text-body-highlight text-text-primary">
+      <div className="flex items-center gap-[12px] flex-1 min-w-0">
+        <ReceiptIcon className="w-[40px] h-[40px]" />
+        <div className="flex flex-col min-w-0">
+          <span className="text-body-emphasis text-text-primary truncate">
             {merchantName}
           </span>
-          <span className="text-body-highlight text-text-primary">
-            ₩{amount.toLocaleString("ko-KR")}
+          <span className="text-body-strong text-text-primary">
+            {CURRENCY_MAP[currency].symbol}
+            {amount.toLocaleString(CURRENCY_MAP[currency].locale)}
           </span>
         </div>
       </div>
-      <span className="px-3 py-1 text-caption-regular text-text-muted bg-surface-sub border border-border-default rounded-md whitespace-nowrap">
-        {payerName}
+      <span className="px-[12px] py-[6px] text-caption-regular text-text-muted bg-surface-sub border border-border-default rounded-[8px] whitespace-nowrap flex-shrink-0">
+        {payerName.trim() || "이름 없음"}
       </span>
     </div>
   );
