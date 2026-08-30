@@ -4,26 +4,14 @@ import type { ReceiptItemData } from "../types/receiptItem.types";
 import { testData } from "../data/receiptItem.testData";
 
 function TestES() {
+  // 미리 만들어둔 영수증 10개짜리 배열을 그대로 상태값으로 넣음
   const [items] = useState<ReceiptItemData[]>(testData);
-  // const [receipt, setReceipt] = useState({
-  //   merchantName: "제주도올레시장맛집투어전통시장골목상권",
-  //   amount: 150000,
-  //   payerName: "시원",
-  //   currency: "KRW" as const,
-  // });
 
   return (
     <div className="flex flex-col gap-[12px] min-h-screen bg-surface-canvas p-[16px]">
-      {/* <ReceiptItem
-        merchantName={receipt.merchantName}
-        amount={receipt.amount}
-        payerName={receipt.payerName}
-        currency={receipt.currency}
-        onClick={() =>
-          setReceipt((prev) => ({ ...prev, amount: prev.amount + 10000 }))
-        }
-      /> */}
+      {/* 배열 안의 영수증(결제처, 금액, 결제한 사람) 10개를 하나씩 순서대로 꺼내서, 각각 <ReceiptItem> 카드로 반복 생성 */}
       {items.map((item) => (
+        // onClick : 클릭해도 아무 동작 안 하는 빈 함수 (아직 실제 기능 연결 전)
         <ReceiptItem key={item.id} {...item} onClick={() => {}} />
       ))}
     </div>
