@@ -38,25 +38,15 @@ export default function Drawer({
       {/* Overlay */}
       <div
         onClick={onClose}
-        className={`
-          fixed inset-0 z-40 bg-black/50
-          transition-opacity duration-300
-          ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"}
-        `}
+        className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
       />
 
       {/* Drawer */}
       <aside
-        className={`
-          fixed right-0 top-0 z-50
-          flex justify-between h-screen w-full max-w-[312px] flex-col border-l border-border-default 
-          bg-surface-sub
-          transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "translate-x-full"}
-        `}
+        className={`fixed right-0 top-0 z-50 flex justify-between h-screen w-full max-w-[312px] flex-col border-l border-border-default bg-surface-sub transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"} `}
       >
         {/* Drawer top */}
-        <div className="pt-14 px-5 flex flex-1 flex-col gap-5 ">
+        <div className="pt-14 px-5 flex flex-1 flex-col gap-5">
           {/* 1. Close */}
           <div className="flex justify-end">
             <button className="cursor-pointer" type="button" onClick={onClose}>
@@ -65,14 +55,7 @@ export default function Drawer({
           </div>
 
           {/* 2. Room thumbnail */}
-          <div
-            className="
-              flex h-[132px] flex-col
-              items-center justify-center gap-2
-              rounded-[12px]
-              border border-border-default
-            "
-          >
+          <div className="flex h-[132px] flex-col items-center justify-center gap-2 rounded-[12px] border border-border-default">
             {thumbnailUrl ?
               <img
                 src={thumbnailUrl}
@@ -100,21 +83,14 @@ export default function Drawer({
           </div>
 
           {/* 4. Divider */}
-          <div className=" h-px w-full bg-border-default" />
+          <div className="h-px w-full bg-border-default" />
 
           {/* 5. Menu */}
           <div className="-mx-5 flex flex-col gap-1">
             <button
               type="button"
               onClick={handleEditRoom}
-              className="
-                flex h-[48px] items-center p-5
-                text-left
-                text-body-emphasis text-text-primary
-                cursor-pointer
-                transition-colors duration-150
-                hover:bg-white/5
-              "
+              className="flex h-[48px] items-center p-5 text-left text-body-emphasis text-text-primary cursor-pointer transition-colors duration-150 hover:bg-white/5"
             >
               정산방 수정
             </button>
@@ -122,14 +98,7 @@ export default function Drawer({
             <button
               type="button"
               onClick={handleViewPayments}
-              className="
-                flex h-[48px] items-center p-5
-                text-left
-                text-body-emphasis text-text-primary
-                cursor-pointer
-                transition-colors duration-150
-                hover:bg-white/5
-              "
+              className="flex h-[48px] items-center p-5 text-left text-body-emphasis text-text-primary cursor-pointer transition-colors duration-150 hover:bg-white/5"
             >
               결제 내역 리스트
             </button>
