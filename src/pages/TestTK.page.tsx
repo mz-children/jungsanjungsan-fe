@@ -6,10 +6,9 @@ import ImageUploader from "../components/ui/ImageUploader";
 import { useState } from "react";
 import { useStore } from "zustand";
 
-// const [searchText, setSearchText] = useState("");
 function TestPage() {
   const [searchText, setSearchText] = useState("");
-  const [image, setImage] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const handleCheck = () => {
     console.log("test!");
@@ -27,13 +26,11 @@ function TestPage() {
     <div className="flex justify-center items-center flex-col gap-4 h-screen bg-surface-canvas">
       <div className="w-full max-w-[354px] flex flex-col gap-4">
         <ImageUploader
-          value={image}
+          value={imageUrl}
+          name="thumnail"
           // placeholder="영수증이나 결제 캡처 사진을 올려주세요"
           accept="image/jpg, image/png"
-          onChange={(file) => {
-            console.log("선택된 파일:", file);
-            setImage(file);
-          }}
+          onChange={setImageUrl}
         />
         <Button>
           <span>등록하기</span>
