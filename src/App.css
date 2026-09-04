@@ -89,6 +89,11 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: var(--color-surface-canvas);
+  color: var(--color-text-primary);
+}
+
 @utility no-scrollbar {
   /* IE 엣지 파이어폭스 */
   -ms-overflow-style: none;
