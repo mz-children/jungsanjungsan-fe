@@ -2,11 +2,13 @@ import CircleButton from "../components/ui/AddButton";
 import Button from "../components/ui/Button";
 import VectorIcon from "../assets/svg/Vector.svg?react";
 import SearchInput from "../components/ui/SearchInput";
+import ImageUploader from "../components/ui/ImageUploader";
 import { useState } from "react";
+import { useStore } from "zustand";
 
-// const [searchText, setSearchText] = useState("");
 function TestPage() {
   const [searchText, setSearchText] = useState("");
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const handleCheck = () => {
     console.log("test!");
@@ -21,33 +23,18 @@ function TestPage() {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col gap-4 h-screen bg-[lightgrey]">
-      <div className="w-[354px] flex flex-col gap-4">
-        <Button variant="primary" onClick={handleCheck}>
-          정산방 생성하기
-        </Button>
-        <Button variant="secondary" onClick={handleCheck}>
-          취 소
-        </Button>
-        <Button variant="danger" onClick={handleCheck}>
-          삭 제
-        </Button>
-        <Button variant="dangerSecondary" onClick={handleCheck}>
-          삭제하기
-        </Button>
-        <Button variant="ghost" onClick={handleCheck} icon={<VectorIcon />}>
-          초대링크 복사하기
-        </Button>
-        <SearchInput
-          name="search"
-          placeholder="결제처, 금액 검색"
-          value={searchText}
-          onChange={(e) => {
-            setSearchText(e.target.value);
-            // console.log(e.target.value);
-          }}
-          onSearch={handleSearch}
+    <div className="flex justify-center items-center flex-col gap-4 h-screen bg-surface-canvas">
+      <div className="w-full max-w-[354px] flex flex-col gap-4">
+        <ImageUploader
+          value={imageUrl}
+          name="thumnail"
+          // placeholder="영수증이나 결제 캡처 사진을 올려주세요"
+          accept="image/jpg, image/png"
+          onChange={setImageUrl}
         />
+        <Button>
+          <span>등록하기</span>
+        </Button>
       </div>
     </div>
   );
