@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import CalendarIcon from "../../assets/svg/calendar.svg?react";
 
 type DatePickerProps = {
-  value: Date | undefined;
-  onChange?: (date: Date | undefined) => void;
-  className?: string;
   name?: string;
+  value: Date;
+  onChange?: (date: Date) => void;
+  className?: string;
 };
 
 const formatDate = (date: Date): string => {
@@ -17,12 +17,92 @@ const formatDate = (date: Date): string => {
   return `${yyyy}.${MM}.${dd} ${HH}:${mm}`;
 };
 
+function WheelColumn({
+  label,
+  items,
+  value,
+  onChange,
+  isInfinite = true,
+  format = (v) => String(v).padStart(2, "0"),
+}: {
+  label: string;
+  items: number[];
+  value: number;
+  onChange: (val: number) => void;
+  isInfinite?: boolean;
+  format?: (val: number) => string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const itemHeight = 40;
+
+  const displayItems = isInfinite ? [...items, ...items, ...items] : items;
+  const count = items.length;
+
+  useEffect(() => {
+    if (!ref.current || count === 0) return;
+    const targetIndex = items.indexOf(value);
+    if (targetIndex === -1) return;
+
+    const actualIndex = isInfinite ? targetIndex + count : targetIndex;
+    ref.current.scrollTop = actualIndex * itemHeight;
+  }, [value, count, isInfinite]);
+
+  const handleScroll = () => {
+    if (!ref.current || count === 0) return;
+    const rawIndex = Math.round(ref.current.scrollTop / itemHeight);
+
+    const normalizedIndex = isInfinite
+      ? ((rawIndex % count) + count) % count
+      : rawIndex;
+
+    if (
+      items[normalizedIndex] !== undefined &&
+      items[normalizedIndex] !== value
+    ) {
+      onChange(items[normalizedIndex]);
+    }
+  };
+
+  return (
+    <div className="flex-1 h-full relative flex flex-col items-center">
+      <div className="w-full text-center py-1 text-[10px] font-semibold bg-surface-sub z-30 text-text-dim absolute top-0">
+        {label}
+      </div>
+      <div
+        ref={ref}
+        onScroll={handleScroll}
+        className="absolute inset-0 overflow-y-auto snap-y snap-mandatory scrollbar-none flex flex-col items-center"
+      >
+        <div className="shrink-0 h-[60px] w-full" />
+
+        {displayItems.map((item, idx) => (
+          <button
+            key={`${item}-${idx}`}
+            type="button"
+            onClick={() => onChange(item)}
+            className={`snap-center shrink-0 h-[40px] w-full flex items-center justify-center text-sm font-semibold transition-all cursor-pointer ${
+              value === item
+                ? "text-brand-primary text-base font-bold scale-110"
+                : "text-text-muted/40"
+            }`}
+          >
+            {format(item)}
+          </button>
+        ))}
+
+        <div className="shrink-0 h-[60px] w-full" />
+      </div>
+    </div>
+  );
+}
+
 export default function DatePicker({
   value,
   onChange,
   className = "",
 }: DatePickerProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const baseYear = new Date().getFullYear();
 
   const currentDate = value || new Date();
   const [tempYear, setTempYear] = useState(currentDate.getFullYear());
@@ -33,72 +113,36 @@ export default function DatePicker({
 
   const daysInMonth = new Date(tempYear, tempMonth, 0).getDate();
 
-  const yearRef = useRef<HTMLDivElement>(null);
-  const monthRef = useRef<HTMLDivElement>(null);
-  const dayRef = useRef<HTMLDivElement>(null);
-  const hourRef = useRef<HTMLDivElement>(null);
-  const minuteRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (isOpen) {
-      const activeDate = value || new Date();
-      setTempYear(activeDate.getFullYear());
-      setTempMonth(activeDate.getMonth() + 1);
-      setTempDay(activeDate.getDate());
-      setTempHour(activeDate.getHours());
-      setTempMinute(activeDate.getMinutes());
-
-      setTimeout(() => {
-        scrollToItem(
-          yearRef,
-          activeDate.getFullYear() - (new Date().getFullYear() - 2),
-        );
-        scrollToItem(monthRef, activeDate.getMonth());
-        scrollToItem(dayRef, activeDate.getDate() - 1);
-        scrollToItem(hourRef, activeDate.getHours());
-        scrollToItem(minuteRef, activeDate.getMinutes());
-      }, 50);
+      const active = value || new Date();
+      setTempYear(active.getFullYear());
+      setTempMonth(active.getMonth() + 1);
+      setTempDay(active.getDate());
+      setTempHour(active.getHours());
+      setTempMinute(active.getMinutes());
     }
-  }, [isOpen]);
+  }, [isOpen, value]);
 
   useEffect(() => {
-    if (tempDay > daysInMonth) {
-      setTempDay(daysInMonth);
-    }
+    if (tempDay > daysInMonth) setTempDay(daysInMonth);
   }, [daysInMonth, tempDay]);
 
-  const scrollToItem = (
-    ref: React.RefObject<HTMLDivElement | null>,
-    index: number,
-  ) => {
-    if (ref.current && ref.current.children[index]) {
-      const item = ref.current.children[index] as HTMLElement;
-      item.scrollIntoView({ block: "center", behavior: "smooth" });
-    }
+  const setNow = () => {
+    const now = new Date();
+    setTempYear(now.getFullYear());
+    setTempMonth(now.getMonth() + 1);
+    setTempDay(now.getDate());
+    setTempHour(now.getHours());
+    setTempMinute(now.getMinutes());
   };
 
-  const updateDate = (
-    y: number,
-    m: number,
-    d: number,
-    h: number,
-    min: number,
-  ) => {
-    const updated = new Date(y, m - 1, d, h, min);
-    if (onChange) onChange(updated);
-  };
-
-  const handleSelectConfirm = () => {
-    updateDate(tempYear, tempMonth, tempDay, tempHour, tempMinute);
+  const handleConfirm = () => {
+    onChange?.(
+      new Date(tempYear, tempMonth - 1, tempDay, tempHour, tempMinute),
+    );
     setIsOpen(false);
   };
-
-  const baseYear = new Date().getFullYear();
-  const years = Array.from({ length: 8 }, (_, i) => baseYear - 2 + i);
-  const months = Array.from({ length: 12 }, (_, i) => i + 1);
-  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-  const hours = Array.from({ length: 24 }, (_, i) => i);
-  const minutes = Array.from({ length: 60 }, (_, i) => i);
 
   return (
     <div className={`w-full ${className}`}>
@@ -129,208 +173,55 @@ export default function DatePicker({
               </span>
               <button
                 type="button"
-                onClick={() => {
-                  const now = new Date();
-                  setTempYear(now.getFullYear());
-                  setTempMonth(now.getMonth() + 1);
-                  setTempDay(now.getDate());
-                  setTempHour(now.getHours());
-                  setTempMinute(now.getMinutes());
-                }}
+                onClick={setNow}
                 className="text-xs font-semibold text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-md hover:opacity-80 transition-opacity cursor-pointer"
               >
                 현재 시간
               </button>
             </div>
 
-            <div className="relative w-full flex items-center justify-center my-4 h-[180px] overflow-hidden">
-              <div className="absolute w-full h-11 bg-brand-primary/10 border-y border-brand-primary/30 pointer-events-none rounded-xl" />
+            <div className="relative w-full flex items-center justify-center my-4 h-[160px] overflow-hidden">
+              <div className="absolute top-1/2 -translate-y-1/2 w-full h-10 bg-brand-primary/10 border-y border-brand-primary/30 pointer-events-none rounded-xl z-20" />
 
-              {/* flex-1 대신 justify-center와 gap을 이용해 간격을 좁히고 정렬 */}
-              <div className="flex items-center justify-center gap-1.5 sm:gap-3 w-full z-10">
-                {/* 년 (4자리 숫자라 약간 넉넉하게 w-14) */}
-                <div className="w-14 shrink-0 flex flex-col items-center">
-                  <span className="text-[10px] font-semibold text-text-dim mb-1">
-                    년
-                  </span>
-                  <div
-                    ref={yearRef}
-                    className="h-[144px] w-full overflow-y-auto snap-y snap-mandatory scrollbar-none py-[52px] flex flex-col items-center"
-                  >
-                    {years.map((y) => (
-                      <button
-                        key={y}
-                        type="button"
-                        onClick={() => {
-                          setTempYear(y);
-                          updateDate(
-                            y,
-                            tempMonth,
-                            tempDay,
-                            tempHour,
-                            tempMinute,
-                          );
-                        }}
-                        className={`snap-center shrink-0 h-10 w-full flex items-center justify-center text-sm font-semibold transition-all cursor-pointer ${
-                          tempYear === y
-                            ? "text-brand-primary text-base font-bold scale-110"
-                            : "text-text-muted/40"
-                        }`}
-                      >
-                        {y}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 월 (2자리 숫자 w-11) */}
-                <div className="w-11 shrink-0 flex flex-col items-center">
-                  <span className="text-[10px] font-semibold text-text-dim mb-1">
-                    월
-                  </span>
-                  <div
-                    ref={monthRef}
-                    className="h-[144px] w-full overflow-y-auto snap-y snap-mandatory scrollbar-none py-[52px] flex flex-col items-center"
-                  >
-                    {months.map((m) => (
-                      <button
-                        key={m}
-                        type="button"
-                        onClick={() => {
-                          setTempMonth(m);
-                          updateDate(
-                            tempYear,
-                            m,
-                            tempDay,
-                            tempHour,
-                            tempMinute,
-                          );
-                        }}
-                        className={`snap-center shrink-0 h-10 w-full flex items-center justify-center text-sm font-semibold transition-all cursor-pointer ${
-                          tempMonth === m
-                            ? "text-brand-primary text-base font-bold scale-110"
-                            : "text-text-muted/40"
-                        }`}
-                      >
-                        {m.toString().padStart(2, "0")}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 일 (2자리 숫자 w-11) */}
-                <div className="w-11 shrink-0 flex flex-col items-center">
-                  <span className="text-[10px] font-semibold text-text-dim mb-1">
-                    일
-                  </span>
-                  <div
-                    ref={dayRef}
-                    className="h-[144px] w-full overflow-y-auto snap-y snap-mandatory scrollbar-none py-[52px] flex flex-col items-center"
-                  >
-                    {days.map((d) => (
-                      <button
-                        key={d}
-                        type="button"
-                        onClick={() => {
-                          setTempDay(d);
-                          updateDate(
-                            tempYear,
-                            tempMonth,
-                            d,
-                            tempHour,
-                            tempMinute,
-                          );
-                        }}
-                        className={`snap-center shrink-0 h-10 w-full flex items-center justify-center text-sm font-semibold transition-all cursor-pointer ${
-                          tempDay === d
-                            ? "text-brand-primary text-base font-bold scale-110"
-                            : "text-text-muted/40"
-                        }`}
-                      >
-                        {d.toString().padStart(2, "0")}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 날짜와 시간 구분선 */}
-                <div className="w-[1px] h-8 bg-border-default/40 my-auto mx-0.5" />
-
-                {/* 시 (2자리 숫자 w-11) */}
-                <div className="w-11 shrink-0 flex flex-col items-center">
-                  <span className="text-[10px] font-semibold text-text-dim mb-1">
-                    시
-                  </span>
-                  <div
-                    ref={hourRef}
-                    className="h-[144px] w-full overflow-y-auto snap-y snap-mandatory scrollbar-none py-[52px] flex flex-col items-center"
-                  >
-                    {hours.map((h) => (
-                      <button
-                        key={h}
-                        type="button"
-                        onClick={() => {
-                          setTempHour(h);
-                          updateDate(
-                            tempYear,
-                            tempMonth,
-                            tempDay,
-                            h,
-                            tempMinute,
-                          );
-                        }}
-                        className={`snap-center shrink-0 h-10 w-full flex items-center justify-center text-sm font-semibold transition-all cursor-pointer ${
-                          tempHour === h
-                            ? "text-brand-primary text-base font-bold scale-110"
-                            : "text-text-muted/40"
-                        }`}
-                      >
-                        {h.toString().padStart(2, "0")}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 분 (2자리 숫자 w-11) */}
-                <div className="w-11 shrink-0 flex flex-col items-center">
-                  <span className="text-[10px] font-semibold text-text-dim mb-1">
-                    분
-                  </span>
-                  <div
-                    ref={minuteRef}
-                    className="h-[144px] w-full overflow-y-auto snap-y snap-mandatory scrollbar-none py-[52px] flex flex-col items-center"
-                  >
-                    {minutes.map((min) => (
-                      <button
-                        key={min}
-                        type="button"
-                        onClick={() => {
-                          setTempMinute(min);
-                          updateDate(
-                            tempYear,
-                            tempMonth,
-                            tempDay,
-                            tempHour,
-                            min,
-                          );
-                        }}
-                        className={`snap-center shrink-0 h-10 w-full flex items-center justify-center text-sm font-semibold transition-all cursor-pointer ${
-                          tempMinute === min
-                            ? "text-brand-primary text-base font-bold scale-110"
-                            : "text-text-muted/40"
-                        }`}
-                      >
-                        {min.toString().padStart(2, "0")}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+              <div className="flex items-center justify-center gap-1 w-full z-10 h-full">
+                <WheelColumn
+                  label="년"
+                  items={Array.from({ length: 77 }, (_, i) => baseYear - 3 + i)}
+                  value={tempYear}
+                  onChange={setTempYear}
+                  format={(v) => String(v)}
+                />
+                <WheelColumn
+                  label="월"
+                  items={Array.from({ length: 12 }, (_, i) => i + 1)}
+                  value={tempMonth}
+                  onChange={setTempMonth}
+                />
+                <WheelColumn
+                  label="일"
+                  items={Array.from({ length: daysInMonth }, (_, i) => i + 1)}
+                  value={tempDay}
+                  onChange={setTempDay}
+                />
+                <div className="w-[1px] h-8 bg-border-default/40 my-auto mx-0.5 z-20" />
+                <WheelColumn
+                  label="시"
+                  items={Array.from({ length: 24 }, (_, i) => i)}
+                  value={tempHour}
+                  onChange={setTempHour}
+                />
+                <WheelColumn
+                  label="분"
+                  items={Array.from({ length: 60 }, (_, i) => i)}
+                  value={tempMinute}
+                  onChange={setTempMinute}
+                />
               </div>
             </div>
 
             <button
               type="button"
-              onClick={handleSelectConfirm}
+              onClick={handleConfirm}
               className="w-full h-12 mt-2 bg-brand-primary text-text-on-primary rounded-xl font-bold text-base hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer shadow-md"
             >
               선택 완료
