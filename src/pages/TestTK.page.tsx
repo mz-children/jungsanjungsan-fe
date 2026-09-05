@@ -1,13 +1,13 @@
 import Button from "../components/ui/Button";
 import VectorIcon from "../assets/svg/Vector.svg?react";
 import SearchInput from "../components/ui/SearchInput";
+import ImageUploader from "../components/ui/ImageUploader";
 import { useState } from "react";
 import Drawer from "../components/ui/Drawer";
 import sampleImage from "../assets/jeju.jpg";
 
 import Hamburger from "../assets/svg/hamburger.svg?react";
 
-// const [searchText, setSearchText] = useState("");
 function TestPage() {
   const [searchText, setSearchText] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
