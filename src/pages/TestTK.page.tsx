@@ -10,7 +10,8 @@ import Hamburger from "../assets/svg/hamburger.svg?react";
 // const [searchText, setSearchText] = useState("");
 function TestPage() {
   const [searchText, setSearchText] = useState("");
-  const [isDrawOpen, setIsDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
 
   const handleCheck = () => {
     console.log("test!");
@@ -23,6 +24,37 @@ function TestPage() {
     alert(`검색 : ${searchText}`);
     setSearchText("");
   };
+
+  const handleEditRoom = () => {
+    alert("정산방 수정");
+  };
+
+  const handleViewPayments = () => {
+    alert("결제 내역");
+  };
+
+  const handleCopyInviteLink = () => {
+    alert("초대 링크 복사");
+  };
+
+  const handleCompleteSettlement = () => {
+    alert("정산 완료");
+  };
+
+  const drawerMenuItems = [
+    {
+      label: "정산방 수정",
+      onClick: handleEditRoom,
+    },
+    {
+      label: "결제 내역 리스트",
+      onClick: handleViewPayments,
+    },
+    {
+      label: "응 아니야 ~ ",
+      onClick: handleViewPayments,
+    },
+  ];
 
   return (
     <div className="flex justify-center items-center flex-col gap-4 h-screen bg-surface-canvas">
@@ -60,9 +92,13 @@ function TestPage() {
           <Hamburger />
         </button>
         <Drawer
-          isOpen={isDrawOpen}
-          onClose={() => setIsDrawerOpen(false)}
+          isOpen={isDrawerOpen}
+          roomName="제주도 여행"
           thumbnailUrl={sampleImage}
+          onClose={() => setIsDrawerOpen(false)}
+          onCopyInviteLink={handleCopyInviteLink}
+          onCompleteSettlement={handleCompleteSettlement}
+          menuItems={drawerMenuItems}
         />
       </div>
     </div>
