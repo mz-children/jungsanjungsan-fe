@@ -151,7 +151,7 @@ export default function DatePicker({
         onClick={() => setIsOpen(true)}
         className="w-full h-[52px] px-4 bg-surface-sub border border-border-default rounded-2xl flex items-center justify-between text-text-primary hover:border-text-muted transition-all active:scale-[0.99] cursor-pointer"
       >
-        <span className="text-text-primary font-medium text-base">
+        <span className="text-text-primary text-body-regular font-inter">
           {value ? formatDate(value) : "일시를 선택하세요"}
         </span>
         <CalendarIcon className="w-5 h-5 text-text-muted cursor-pointer hover:scale-110 transition-transform" />
@@ -168,13 +168,13 @@ export default function DatePicker({
             />
 
             <div className="w-full flex items-center justify-between mb-2 px-1">
-              <span className="text-lg font-bold text-text-primary">
+              <span className="text-body-regular font-inter text-text-primary">
                 일시 선택
               </span>
               <button
                 type="button"
                 onClick={setNow}
-                className="text-xs font-semibold text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-md hover:opacity-80 transition-opacity cursor-pointer"
+                className="text-body-regular font-inter text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-md hover:opacity-80 transition-opacity cursor-pointer"
               >
                 현재 시간
               </button>
@@ -222,7 +222,7 @@ export default function DatePicker({
             <button
               type="button"
               onClick={handleConfirm}
-              className="w-full h-12 mt-2 bg-brand-primary text-text-on-primary rounded-xl font-bold text-base hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer shadow-md"
+              className="w-full h-12 mt-2  bg-brand-primary text-text-on-primary rounded-xl font-bold text-base hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer shadow-md"
             >
               선택 완료
             </button>
