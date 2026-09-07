@@ -3,9 +3,11 @@ import NumberInput from "../components/ui/NumberInput";
 import GoBackHeader from "../components/ui/GoBackHeader";
 import DiscriptionCard from "../components/ui/DiscriptionCard";
 import CalculatorIcon from "../assets/svg/calculator.svg?react";
+import { useNavigate } from "react-router";
 
 export default function TestSWPage() {
   const [input, setState] = useState({ money: 0 });
+  const navigate = useNavigate();
 
   const handleChangeInput = (name: string, value: number, e: any) => {
     console.log(name, value, e);
@@ -13,7 +15,10 @@ export default function TestSWPage() {
   };
 
   return (
-    <div className="w-full h-[100vh] flex flex-col justify-center items-center p-[60px] bg-[yellowgreen]">
+    <div
+      className="w-full h-[100vh] flex flex-col justify-center items-center p-[60px] bg-[yellowgreen]"
+      onClick={() => navigate("/room/confirm")}
+    >
       <GoBackHeader
         title="정산방 상세"
         onClickBack={() => console.log("test")}

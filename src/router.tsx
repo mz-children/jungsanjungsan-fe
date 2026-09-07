@@ -8,6 +8,7 @@ import RoomCreate from "./pages/RoomCreate.page";
 import RoomConfirm from "./pages/RoomConfirm.page";
 import TestPageTK from "./pages/TestTK.page";
 import ComingSoonPage from "./pages/ComingSoon.page";
+import RoomCreateLayout from "./context/RoomCreateLayout";
 
 export default function Router() {
   return (
@@ -18,9 +19,11 @@ export default function Router() {
         <Route path="/" element={<HomePage />} />
 
         <Route path="room">
-          <Route path="create" element={<RoomCreate />} />
-          <Route path="confirm" element={<RoomConfirm />} />
-          <Route path="done" element={<ComingSoonPage />} />
+          <Route element={<RoomCreateLayout />}>
+            <Route path="create" element={<RoomCreate />} />
+            <Route path="confirm" element={<RoomConfirm />} />
+            <Route path="done" element={<ComingSoonPage />} />
+          </Route>
 
           <Route path=":shareCode">
             <Route index element={<ComingSoonPage />} />

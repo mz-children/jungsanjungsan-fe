@@ -1,33 +1,28 @@
 import { useState } from "react";
+import useRoomCreateStore from "../../store/roomCreateStore";
+import useModalStore from "../store/modalStore";
 
-type AddMemberModalProps = {
-  onAdd: (name: string) => void;
-  onClose: () => void;
-};
+export default function AddMemberModal() {
+  const { addMember } = useRoomCreateStore();
+  const { closeModal } = useModalStore();
 
-export default function AddMemberModal({
-  onAdd,
-  onClose,
-}: AddMemberModalProps) {
   const [name, setName] = useState("");
 
-  const handleAdd = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     const trimmedName = name.trim();
 
     if (!trimmedName) return;
 
-    onAdd(trimmedName);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleAdd();
+    addMember({ id: crypto.randomUUID(), name: trimmedName });
+    closeModal();
   };
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6"
-      onClick={onClose}
+      onClick={() => closeModal()}
     >
       <form
         onSubmit={handleSubmit}
@@ -50,7 +45,7 @@ export default function AddMemberModal({
         <div className="mt-5 flex gap-2">
           <button
             type="button"
-            onClick={onClose}
+            onClick={() => closeModal()}
             className="h-[48px] cursor-pointer flex-1 rounded-[8px] border border-border-default bg-surface-sub text-text-primary text-body-highlight"
           >
             취소

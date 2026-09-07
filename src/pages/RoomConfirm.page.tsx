@@ -1,26 +1,36 @@
 import { useRef } from "react";
-import { Navigate, useLocation } from "react-router";
 import Button from "../components/ui/Button";
 import GoBackHeader from "../components/ui/GoBackHeader";
 import PerPersonBudget from "../components/ui/PerPersonBudget";
 import RoomHeader from "../components/ui/RoomHeader";
-import type { RoomCreatePayload } from "../types/room.types";
+import useRoomCreateStore from "../store/roomCreateStore";
+import { useNavigate } from "react-router";
 
 export default function RoomConfirm() {
-  const { state } = useLocation();
+  // const { state } = useLocation();
   const submitted = useRef(false);
-  const payload = state as RoomCreatePayload | null;
+  const navigate = useNavigate();
 
-  if (!payload) {
-    return <Navigate to="/room/create" replace />;
-  }
+  // const payload = state as RoomCreatePayload | null;
+
+  // if (!payload) {
+  //   return <Navigate to="/room/create" replace />;
+  // }
+
+  const {
+    data: { title, members, totalBudget, thumbnailUrl },
+    initState,
+  } = useRoomCreateStore();
 
   const handleCreate = () => {
-    //post 2연속 방지. 왜 state안썻냐? 그것이 약속
-    if (submitted.current) return;
-    submitted.current = true;
+    // initState();
+    navigate("/sw");
 
-    alert(`[테스트] ${payload.title} 정산방 생성 정보를 post로 보내보아요`);
+    //post 2연속 방지. 왜 state안썻냐? 그것이 약속
+    // if (submitted.current) return;
+    // submitted.current = true;
+
+    // alert(`[테스트] ${payload.title} 정산방 생성 정보를 post로 보내보아요`);
   };
 
   return (
@@ -38,24 +48,22 @@ export default function RoomConfirm() {
             <span className="text-body-regular text-text-muted">
               정산방 이름
             </span>
-            <span className="text-heading-md text-text-primary">
-              {payload.title}
-            </span>
+            <span className="text-heading-md text-text-primary">{title}</span>
           </div>
           <div className="flex items-center justify-between border-b border-border-default pb-5">
             <span className="text-body-plain text-text-muted">총 예산</span>
             <span className="text-heading-lg text-text-primary">
-              ₩{payload.totalBudget.toLocaleString("ko-KR")}
+              ₩{totalBudget.toLocaleString("ko-KR")}
             </span>
           </div>
           <div className="flex flex-col gap-2 border-b border-border-default pb-5">
             <span className="text-body-plain text-text-muted">
-              참여 멤버 ({payload.members.length}명)
+              참여 멤버 ({members.length}명)
             </span>
             <div className="flex flex-wrap gap-2">
-              {payload.members.map((member, index) => (
+              {members.map((member) => (
                 <span
-                  key={index}
+                  key={member.id}
                   className="rounded-[8px] border border-border-default bg-surface-sub px-3 py-1 text-body-default text-text-primary"
                 >
                   {member.name}
@@ -64,8 +72,8 @@ export default function RoomConfirm() {
             </div>
           </div>
           <PerPersonBudget
-            totalBudget={payload.totalBudget}
-            memberCount={payload.members.length}
+            totalBudget={totalBudget}
+            memberCount={members.length}
           />
         </div>
       </div>

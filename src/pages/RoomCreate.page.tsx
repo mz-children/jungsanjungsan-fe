@@ -7,24 +7,23 @@ import RoomHeader from "../components/ui/RoomHeader";
 import MemberChip from "../components/ui/MemberChip";
 import PerPersonBudget from "../components/ui/PerPersonBudget";
 import AddMemberButton from "../components/ui/AddMemberButton";
-import AddMemberModal from "../components/ui/AddMemberModal";
 
-import { useState } from "react";
 import { useNavigate } from "react-router";
-import type { RoomCreatePayload } from "../types/room.types";
-
-type MemberData = {
-  id: string;
-  name: string;
-};
+import useModalStore from "../modal/store/modalStore";
+import useRoomCreateStore from "../store/roomCreateStore";
 
 export default function RoomCreate() {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [totalBudget, setTotalBudget] = useState(0);
-  const [members, setMembers] = useState<MemberData[]>([]);
-  const [thumbnailUrl, setThumbnailUrl] = useState("");
-  const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
+
+  const {
+    data: { title, members, totalBudget, thumbnailUrl },
+    setTitle,
+    setTotalBudget,
+    setThumbnailUrl,
+    deleteMember,
+  } = useRoomCreateStore();
+
+  const { openModal } = useModalStore();
 
   const handleConfirm = () => {
     if (!title.trim()) {
@@ -42,37 +41,7 @@ export default function RoomCreate() {
       return;
     }
 
-    const payload: RoomCreatePayload = {
-      title: title,
-      totalBudget,
-      thumbnailFileId: null,
-      members: members.map(({ name }) => ({ name })),
-    };
-
-    navigate("/room/confirm", { state: payload });
-  };
-
-  const handleClickAddMemberBtn = () => {
-    setIsAddMemberOpen(true);
-  };
-
-  const handleAddMember = (name: string) => {
-    if (!name.trim()) return;
-
-    setMembers((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        name: name.trim(),
-      },
-    ]);
-
-    // setNewMemberName("");
-    setIsAddMemberOpen(false);
-  };
-
-  const handleClickMemberChip = (id: string) => {
-    setMembers((prev) => prev.filter((member) => member.id !== id));
+    navigate("/room/confirm");
   };
 
   return (
@@ -104,20 +73,21 @@ export default function RoomCreate() {
         <div className="flex flex-col gap-2">
           <span className="text-lebel-md text-text-muted">여행 멤버</span>
           <div className="flex gap-[8px] overflow-x-auto no-scrollbar">
-            <AddMemberButton onClick={handleClickAddMemberBtn} />
-            {isAddMemberOpen && (
+            <AddMemberButton onClick={() => openModal("ADD_MEMBER")} />
+
+            {/* {isAddMemberOpen && (
               <AddMemberModal
                 onAdd={handleAddMember}
                 onClose={() => setIsAddMemberOpen(false)}
               />
-            )}
+            )} */}
 
             {members.map((member) => {
               return (
                 <MemberChip
                   key={member.id}
                   name={member.name}
-                  onRemove={() => handleClickMemberChip(member.id)}
+                  onRemove={() => deleteMember(member)}
                 />
               );
             })}
@@ -143,6 +113,7 @@ export default function RoomCreate() {
           />
         </div>
       </div>
+
       {/* bottom */}
       <div className="flex px-6 pb-2">
         <Button onClick={handleConfirm}>정산방 생성 정보 확인하기</Button>
