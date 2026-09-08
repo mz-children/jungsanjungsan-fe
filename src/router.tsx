@@ -16,7 +16,7 @@ export default function Router() {
         <Route path="/sw" element={<TestSWPage />} />
         <Route path="/tk" element={<TestPageTK />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/testnr" element={<TestNRPage />} />
+        <Route path="/nr" element={<TestNRPage />} />
         <Route path="/dh" element={<Dhpage />} />
         <Route path="/es" element={<TestES />} />
       </Routes>
