@@ -6,6 +6,8 @@ import Dhpage from "./pages/Dh.page";
 import TestES from "./pages/TestES.page";
 import TestSWPage from "./pages/TestSW.page";
 import TestPageTK from "./pages/TestTK.page";
+import TestNRPage from "./pages/TestNR.page";
+
 export default function Router() {
   return (
     <BrowserRouter>
@@ -14,6 +16,7 @@ export default function Router() {
         <Route path="/sw" element={<TestSWPage />} />
         <Route path="/tk" element={<TestPageTK />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/nr" element={<TestNRPage />} />
         <Route path="/dh" element={<Dhpage />} />
         <Route path="/es" element={<TestES />} />
       </Routes>
