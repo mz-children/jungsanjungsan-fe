@@ -7,7 +7,7 @@ interface BudgetProgressBarProps {
 
 function getBarColor(percent: number): string {
   if (percent < 25) return "bg-green-400";
-  if (percent < 50) return "bg-green-600";
+  if (percent < 50) return "bg-green-500";
   if (percent < 75) return "bg-yellow-400";
   if (percent < 100) return "bg-orange-500";
   return "bg-red-500";
