@@ -6,7 +6,7 @@ type ButtonProps = {
 };
 
 const variants = {
-  primary: "bg-brand-primary text-on-primary",
+  primary: "bg-brand-primary text-text-on-primary",
   secondary: "bg-surface-sub border-1 border-border-default text-text-primary",
   danger: "bg-accent-danger text-text-primary",
   dangerSecondary:
