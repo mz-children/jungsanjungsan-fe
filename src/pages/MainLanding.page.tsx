@@ -6,15 +6,17 @@ import VectorIcon from "../assets/svg/Vector.svg?react";
 
 export default function MainLanding() {
   return (
-    <div className="flex flex-col w-full min-h-screen bg-surface-canvas text-text-primary px-5 py-4">
-      <div className="flex flex-col items-center gap-4 mt-10">
-        <div className="px-3 py-1 rounded-full bg-surface-card text-caption-strong text-brand-primary">
+    <div className="flex flex-col w-full min-h-screen bg-surface-canvas text-text-primary px-[20px] py-[16px]">
+      <div className="flex flex-col items-center gap-[16px] mt-[40px]">
+        <div className="px-[12px] py-[4px] rounded-full bg-surface-card text-caption-strong font-inter leading-none text-brand-primary">
           RELEASE v1.0
         </div>
 
-        <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-heading-xl">정산정산</h1>
-          <p className="text-body-regular text-text-muted">
+        <div className="flex flex-col items-center gap-[10px] text-center">
+          <h1 className="text-display-amount font-inter leading-none">
+            정산정산
+          </h1>
+          <p className="text-[18px] leading-none font-normal font-inter text-text-muted">
             여행 정산, 한 번에 깔끔하게
           </p>
         </div>
@@ -24,7 +26,7 @@ export default function MainLanding() {
         </Button>
       </div>
 
-      <div className="flex flex-col gap-3 mt-10">
+      <div className="flex flex-col gap-[12px] mt-[40px]">
         <FeatureCard
           icon={<CalculatorIcon />}
           title="간편한 영수증 정산"
@@ -43,7 +45,7 @@ export default function MainLanding() {
       </div>
       <button
         onClick={() => {}}
-        className="flex items-center justify-center gap-2 h-[52px] rounded-[8px] border border-border-default text-body-emphasis mt-10 cursor-pointer hover:opacity-80"
+        className="flex items-center justify-center gap-[8px] h-[52px] rounded-[8px] border border-border-default text-body-default font-inter text-text-muted leading-none mt-[40px] cursor-pointer hover:opacity-80"
       >
         <VectorIcon />
         친구에게 앱 초대 링크 공유하기
@@ -60,11 +62,11 @@ type FeatureCardProps = {
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
-    <div className="flex gap-3 p-4 rounded-[12px] bg-surface-card border border-border-default">
+    <div className="flex gap-[12px] p-[16px] rounded-[12px] bg-surface-card border border-border-default">
       <div className="flex items-center justify-center w-[40px] h-[40px] rounded-[8px] border border-border-default bg-surface-canvas shrink-0">
         {icon}
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-[4px]">
         <span className="text-body-emphasis">{title}</span>
         <span className="text-caption-regular text-text-muted">
           {description}
