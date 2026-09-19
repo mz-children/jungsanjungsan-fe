@@ -6,7 +6,7 @@ type ButtonProps = {
 };
 
 const variants = {
-  primary: "bg-brand-primary text-on-primary",
+  primary: "bg-brand-primary text-text-on-primary",
   secondary: "bg-surface-sub border-1 border-border-default text-text-primary",
   danger: "bg-accent-danger text-text-primary",
   dangerSecondary:
@@ -23,10 +23,12 @@ export default function Button({
   return (
     <button
       onClick={onClick}
-      className={`flex justify-center items-center gap-2.5 hover:opacity-80 cursor-pointer w-full h-[52px] rounded-[8px] ${variants[variant]} `}
+      className={`flex justify-center items-center gap-[10px] hover:opacity-80 cursor-pointer w-full h-[52px] rounded-[8px] ${variants[variant]} `}
     >
       {icon}
-      <span className="text-heading-md ">{children}</span>
+      <span className="text-heading-md font-inter leading-none">
+        {children}
+      </span>
     </button>
   );
 }

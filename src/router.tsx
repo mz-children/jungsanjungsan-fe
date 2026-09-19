@@ -6,6 +6,7 @@ import Dhpage from "./pages/Dh.page";
 import TestES from "./pages/TestES.page";
 import TestSWPage from "./pages/TestSW.page";
 import TestPageTK from "./pages/TestTK.page";
+import MainLanding from "./pages/MainLanding.page";
 export default function Router() {
   return (
     <BrowserRouter>
@@ -16,6 +17,7 @@ export default function Router() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/dh" element={<Dhpage />} />
         <Route path="/es" element={<TestES />} />
+        <Route path="/main-landing" element={<MainLanding />} />
       </Routes>
     </BrowserRouter>
   );
